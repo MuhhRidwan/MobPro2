@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        binding.tvHello.text = "hello binding"
+        binding.tvHello.text = "HelloBinding!"
 
     }
 }
