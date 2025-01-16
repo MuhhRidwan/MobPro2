@@ -53,6 +53,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
