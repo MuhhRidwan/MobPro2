@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "333125528487",
+    "project_id": "mobpro2-5dfb7",
+    "storage_bucket": "mobpro2-5dfb7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333125528487:android:ffba437c16802c4a01e482",
+        "android_client_info": {
+          "package_name": "org.d3if0023.mymodul1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEzDcat-n3PJbUJ3dp77DLUbfissKbQtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
