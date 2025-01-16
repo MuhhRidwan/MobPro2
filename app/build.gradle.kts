@@ -50,6 +50,9 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
