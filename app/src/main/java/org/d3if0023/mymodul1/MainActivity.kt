@@ -15,6 +15,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
+import org.d3ifcool.modul03.notify.AlarmUtils
 import org.d3ifcool.modul03.notify.sendNotification
 
 class MainActivity : AppCompatActivity() {
@@ -34,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.login.setOnClickListener { mulaiLogin() }
         binding.logout.setOnClickListener { AuthUI.getInstance().signOut(this) }
-        binding.notify.setOnClickListener { tampilNotifikasi() }
 
         viewModel.authState.observe(this) { updateUI(it) }
+        AlarmUtils.setAlarm(this)
     }
     private fun updateUI(user: FirebaseUser?) = with(binding) {
         if (user == null) {
@@ -57,10 +58,4 @@ class MainActivity : AppCompatActivity() {
             .build()
         signInLauncher.launch(intent)
     }
-    private fun tampilNotifikasi() {
-        val notificationManager = ContextCompat.getSystemService(
-            this, NotificationManager::class.java)
-        notificationManager?.sendNotification(this)
-    }
-
 }
