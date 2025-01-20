@@ -1,10 +1,12 @@
 package org.d3if0023.mymodul1
 
+import android.app.NotificationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.firebase.ui.auth.AuthUI
@@ -13,6 +15,7 @@ import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
+import org.d3ifcool.modul03.notify.sendNotification
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.login.setOnClickListener { mulaiLogin() }
         binding.logout.setOnClickListener { AuthUI.getInstance().signOut(this) }
+        binding.notify.setOnClickListener { tampilNotifikasi() }
 
         viewModel.authState.observe(this) { updateUI(it) }
     }
@@ -52,6 +56,11 @@ class MainActivity : AppCompatActivity() {
             .setAvailableProviders(providers)
             .build()
         signInLauncher.launch(intent)
+    }
+    private fun tampilNotifikasi() {
+        val notificationManager = ContextCompat.getSystemService(
+            this, NotificationManager::class.java)
+        notificationManager?.sendNotification(this)
     }
 
 }
