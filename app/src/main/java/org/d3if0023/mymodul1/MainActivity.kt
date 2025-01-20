@@ -1,5 +1,6 @@
 package org.d3if0023.mymodul1
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetector
 import com.google.mlkit.vision.face.FaceDetectorOptions
@@ -118,12 +120,24 @@ class MainActivity : AppCompatActivity() {
 
         detector.process(image)
             .addOnSuccessListener {
-                Log.d("WAJAH","Wajah terdeteksi: " + it.size.toString())
+               updateUI(it)
                 lastImage?.close()
             }
             .addOnFailureListener { e ->
                 Log.e("MainActivity", "error deteksi wajah: " +
                         e.message)
             }
+    }
+    @SuppressLint("StringFormatMatches")
+    private fun updateUI(faces: MutableList<Face>){
+        if (faces.isEmpty()){
+            binding.textView.setText(R.string.hasil_deteksi_wajah_0)
+            return
+        }
+        binding.textView.text = getString(R.string.hasil_deteksi_wajah_1,
+            faces[0].rightEyeOpenProbability!! * 100,
+            faces[0].leftEyeOpenProbability!! * 100,
+            faces[0].smilingProbability!! * 100
+        )
     }
 }

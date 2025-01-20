@@ -2,4 +2,10 @@
     <string name="app_name">MyModul1</string>
     <string name="mulai">Mulai</string>
     <string name="tidak_dapat_izin">Tidak mendapat izin kamera</string>
+    <string name="hasil_deteksi_wajah_0">Hasil deteksi wajah akan muncul di sini..</string>
+    <string name="hasil_deteksi_wajah_1">
+        mata kanan terbuka: %1$.Of%%\n
+        mata kiri terbuka: %2$.Of%%\n
+        mata kanan terbuka: %3$.Of%%\n
+    </string>
 </resources>
