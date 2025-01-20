@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -65,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         )
         tanganiPengumuman(intent)
     }
+
+
+
     private fun checkInSekarang() {
         val intent = CustomTabsIntent.Builder().build()
         intent.launchUrl(this, Uri.parse(CHECK_IN_URL))
