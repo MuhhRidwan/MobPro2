@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
 import org.d3ifcool.modul03.notify.AlarmUtils
+import org.d3ifcool.modul03.notify.createChannel
 import org.d3ifcool.modul03.notify.sendNotification
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +46,21 @@ class MainActivity : AppCompatActivity() {
         binding.checkin.setOnClickListener { checkInSekarang() }
 
         viewModel.authState.observe(this) { updateUI(it) }
+
+        // Pembuatan channel baru (news)
+        createChannel(
+            this,
+            R.string.news_channel_id,
+            R.string.news_channel_name,
+            R.string.news_channel_desc
+        )
+        // Pembuatan channel sebelumnya (reminder).
+        createChannel(
+            this,
+            R.string.notif_channel_id,
+            R.string.notif_channel_name,
+            R.string.notif_channel_desc
+        )
     }
     private fun checkInSekarang() {
         val intent = CustomTabsIntent.Builder().build()

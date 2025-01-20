@@ -62,6 +62,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation ("androidx.browser:browser:1.3.0")
+    implementation ("com.google.firebase:firebase-messaging-ktx")
 
 
 }
