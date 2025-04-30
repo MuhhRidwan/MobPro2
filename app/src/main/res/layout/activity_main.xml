@@ -67,7 +67,7 @@
         android:id="@+id/userGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="namaTextView,imageView,logout,divider,checkin"/>
+        app:constraint_referenced_ids="namaTextView,imageView,logout,divider"/>
     <Button
         android:id="@+id/checkin"
         android:layout_width="0dp"

@@ -7,6 +7,6 @@
     <string name="notif_message">Check-in sekarang agar kesehatanmu terpantau!</string>
     <string name="notif_channel_id" translatable="false">reminder</string>
     <string name="notif_channel_name">Reminder</string>
-    <string name="notif_channel_desc">Reminder check-in tiap beberapa jam.
-</string>
+    <string name="notif_channel_desc">Reminder check-in tiap beberapa jam.</string>
+    <string name="peta">peta</string>
 </resources>

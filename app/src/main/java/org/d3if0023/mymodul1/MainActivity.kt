@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             AlarmUtils.setAlarmOff(this@MainActivity)
         }
         else {
+            namaTextView.text = user.displayName
+            Glide.with(this@MainActivity).load(user.photoUrl).into(imageView)
             userGroup.visibility = View.VISIBLE
             login.visibility = View.GONE
             AlarmUtils.setAlarm(this@MainActivity)
