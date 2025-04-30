@@ -1,22 +1,77 @@
 package org.d3if0023.mymodul1
 
+import android.app.NotificationManager
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
+import org.d3ifcool.modul03.notify.AlarmUtils
+import org.d3ifcool.modul03.notify.sendNotification
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        private const val CHECK_IN_URL =
+            "https://checkin.telkomuniversity.ac.id"
+    }
+
+    private val contract = FirebaseAuthUIActivityResultContract()
+    private val signInLauncher = registerForActivityResult(contract) { }
+
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
+        binding.login.setOnClickListener { mulaiLogin() }
+        binding.logout.setOnClickListener { AuthUI.getInstance().signOut(this) }
+        binding.checkin.setOnClickListener { checkInSekarang() }
 
-        binding.tvHello.text = "HelloBinding!"
+        viewModel.authState.observe(this) { updateUI(it) }
+    }
+    private fun checkInSekarang() {
+        val intent = CustomTabsIntent.Builder().build()
+        intent.launchUrl(this, Uri.parse(CHECK_IN_URL))
+    }
 
+    private fun updateUI(user: FirebaseUser?) = with(binding) {
+        if (user == null) {
+            userGroup.visibility = View.GONE
+            login.visibility = View.VISIBLE
+            AlarmUtils.setAlarmOff(this@MainActivity)
+        }
+        else {
+            namaTextView.text = user.displayName
+            Glide.with(this@MainActivity).load(user.photoUrl).into(imageView)
+            userGroup.visibility = View.VISIBLE
+            login.visibility = View.GONE
+            AlarmUtils.setAlarm(this@MainActivity)
+        }
+    }
+    private fun mulaiLogin() {
+
+        val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
+        val intent = AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .build()
+        signInLauncher.launch(intent)
     }
 }
