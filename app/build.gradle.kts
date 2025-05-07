@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "org.d3if0023.mymodul1"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 30
         versionCode = 1
         versionName = "1.0"
 
@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+
+    implementation ("androidx.browser:browser:1.3.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
