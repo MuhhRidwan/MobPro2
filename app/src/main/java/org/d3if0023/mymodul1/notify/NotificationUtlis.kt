@@ -12,6 +12,8 @@ import org.d3if0023.mymodul1.MainActivity
 import org.d3if0023.mymodul1.R
 
 private const val NOTIFICATION_ID = 0
+private const val PENGUMUMAN_ID = 1
+
 fun NotificationManager.sendNotification(context: Context) {
     val intent = Intent(context, MainActivity::class.java)
     val pendingIntent = PendingIntent.getActivity(context,
@@ -26,23 +28,39 @@ fun NotificationManager.sendNotification(context: Context) {
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
 
-    createChannel(context)
     notify(NOTIFICATION_ID, builder.build())
 }
-private fun createChannel(context: Context) {
+fun createChannel(context: Context, idRes:Int, nameRes: Int, descRes: Int) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val notificationChannel = NotificationChannel(
-            context.getString(R.string.notif_channel_id),
-            context.getString(R.string.notif_channel_name),
+            context.getString(idRes),
+            context.getString(nameRes),
             NotificationManager.IMPORTANCE_HIGH
         ).apply {
             setShowBadge(false)
             enableLights(true)
             lightColor = Color.RED
             enableVibration(true)
-            description = context.getString(R.string.notif_channel_desc)
+            description= context.getString(descRes)
         }
         val manager = context.getSystemService(NotificationManager::class.java)
         manager?.createNotificationChannel(notificationChannel)
     }
+}
+fun NotificationManager.sendNotification(context: Context,
+                                         title: String, body: String, url: String) {
+    val intent = Intent(context, MainActivity::class.java)
+    intent.putExtra(FcmService.KEY_URL, url)
+    val pendingIntent = PendingIntent.getActivity(context,
+        PENGUMUMAN_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val builder = NotificationCompat.Builder(
+        context,
+        context.getString(R.string.news_channel_id)
+    )
+        .setSmallIcon(R.mipmap.ic_launcher_round)
+        .setContentTitle(title)
+        .setContentText(body)
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(true)
+    notify(PENGUMUMAN_ID, builder.build())
 }

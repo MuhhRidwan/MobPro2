@@ -1,6 +1,7 @@
 package org.d3if0023.mymodul1
 
 import android.app.NotificationManager
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
 import org.d3if0023.mymodul1.notify.AlarmUtils
+import org.d3if0023.mymodul1.notify.FcmService
+import org.d3if0023.mymodul1.notify.createChannel
 import org.d3if0023.mymodul1.notify.sendNotification
 
 class MainActivity : AppCompatActivity() {
@@ -45,6 +48,29 @@ class MainActivity : AppCompatActivity() {
         binding.checkin.setOnClickListener { checkInSekarang() }
 
         viewModel.authState.observe(this) { updateUI(it) }
+        // Pembuatan channel baru (news)
+        createChannel(
+            this,
+            R.string.news_channel_id,
+            R.string.news_channel_name,
+            R.string.news_channel_desc
+        )
+        // Pembuatan channel sebelumnya (reminder).
+        createChannel(
+            this,
+            R.string.notif_channel_id,
+            R.string.notif_channel_name,
+            R.string.notif_channel_desc
+        )
+        tanganiPengumuman(intent)
+    }
+
+
+    private fun tanganiPengumuman(intent: Intent) {
+        if (!intent.hasExtra(FcmService.KEY_URL)) return
+        val url = intent.getStringExtra(FcmService.KEY_URL) ?: return
+        val tabsIntent = CustomTabsIntent.Builder().build()
+        tabsIntent.launchUrl(this, Uri.parse(url))
     }
 
     private fun checkInSekarang() {

@@ -42,6 +42,7 @@ android {
 dependencies {
 
     implementation ("androidx.browser:browser:1.3.0")
+    implementation ("com.google.firebase:firebase-messaging-ktx")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
