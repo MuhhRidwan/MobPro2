@@ -1,4 +1,4 @@
-package org.d3if0023.mymodul1
+package org.d3if0023.mymodul1.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

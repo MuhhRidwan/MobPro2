@@ -1,4 +1,4 @@
-package org.d3if0023.mymodul1
+package org.d3if0023.mymodul1.ui.detail
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import org.d3if0023.mymodul1.R
 import org.d3if0023.mymodul1.data.Mahasiswa
 import org.d3if0023.mymodul1.databinding.DialogMainBinding
 

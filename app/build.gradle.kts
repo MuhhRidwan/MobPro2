@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,4 +57,7 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.recyclerview:recyclerview:1.3.1")
+
+    implementation (platform("com.google.firebase:firebase-bom:29.0.0"))
+    implementation ("com.google.firebase:firebase-analytics-ktx")
 }

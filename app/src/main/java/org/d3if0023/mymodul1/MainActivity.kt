@@ -14,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import org.d3if0023.mymodul1.data.Mahasiswa
 import org.d3if0023.mymodul1.data.MahasiswaDb
 import org.d3if0023.mymodul1.databinding.ActivityMainBinding
+import org.d3if0023.mymodul1.ui.detail.MainAdapter
+import org.d3if0023.mymodul1.ui.detail.MainDialog
+import org.d3if0023.mymodul1.ui.detail.MainViewModel
+import org.d3if0023.mymodul1.ui.detail.MainViewModelFactory
 
 
 class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
