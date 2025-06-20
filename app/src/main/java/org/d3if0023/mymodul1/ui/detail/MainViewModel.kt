@@ -19,7 +19,7 @@ class MainViewModel(private val db : MahasiswaDao) : ViewModel() {
             }
         }
     }
-    fun deleteData(ids: List<Int>) {
+    fun deleteData(ids: List<String>) {
         val newIds = ids.toList()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

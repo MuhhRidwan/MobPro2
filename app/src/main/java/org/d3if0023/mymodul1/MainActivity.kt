@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     private var actionMode: ActionMode? = null
 
     private val viewModel: MainViewModel by lazy {
-        val dataSource = MahasiswaDb.getInstance(this).dao
+        val dataSource = MahasiswaDb.getInstance().dao
         val factory = MainViewModelFactory(dataSource)
         ViewModelProvider(this, factory)[MainViewModel::class.java]
     }

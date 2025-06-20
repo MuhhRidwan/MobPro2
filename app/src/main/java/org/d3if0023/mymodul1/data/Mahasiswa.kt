@@ -1,12 +1,10 @@
 package org.d3if0023.mymodul1.data
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.firebase.database.Exclude
 
-@Entity
 data class Mahasiswa(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val nim: String,
-    val nama: String
+    @get:Exclude
+    var id: String = "",
+    var nim: String = "",
+    var nama: String = ""
 )

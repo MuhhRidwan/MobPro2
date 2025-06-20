@@ -1,27 +1,35 @@
 package org.d3if0023.mymodul1.data
 
-import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import android.content.UriRelativeFilter.PATH
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.FirebaseDatabase
 
-@Database(entities = [Mahasiswa::class], version = 1, exportSchema = false)
-abstract class MahasiswaDb : RoomDatabase() {
-    abstract val dao : MahasiswaDao
+
+class MahasiswaDb private constructor() {
+
+    private val database = FirebaseDatabase.getInstance().getReference(PATH)
+
+    val dao = object : MahasiswaDao {
+        override fun insertData(mahasiswa: Mahasiswa) {
+            database.push().setValue(mahasiswa)
+        }
+        override fun getData(): LiveData<List<Mahasiswa>> {
+            return MahasiswaLiveData(database)
+        }
+        override fun deleteData(ids: List<String>) {
+            ids.forEach { database.child(it).removeValue() }
+        }
+    }
     companion object {
+        private const val PATH = "mahasiswa"
         @Volatile
         private var INSTANCE: MahasiswaDb? = null
-        fun getInstance(context: Context): MahasiswaDb {
+        fun getInstance(): MahasiswaDb {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        MahasiswaDb::class.java,
-
-                        "mahasiswa.db"
-                    ).build()
-
+                    instance = MahasiswaDb()
                     INSTANCE = instance
 
                 }
