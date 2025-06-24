@@ -1,27 +1,40 @@
-package org.d3if0023.mymodul1
+package org.d3if0023.mymodul1.ui.detail
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import org.d3if0023.mymodul1.R
 import org.d3if0023.mymodul1.data.Mahasiswa
+import org.d3if0023.mymodul1.data.MahasiswaDb
 import org.d3if0023.mymodul1.databinding.DialogMainBinding
 
 class MainDialog : DialogFragment() {
+
     private lateinit var binding: DialogMainBinding
+
+    private val viewModel: MainViewModel by lazy {
+        val dataSource = MahasiswaDb.getInstance(requireContext()).dao
+        val factory = MainViewModelFactory(dataSource)
+        ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val inflater = LayoutInflater.from(requireContext())
+
         binding = DialogMainBinding.inflate(inflater, null, false)
         val builder = AlertDialog.Builder(requireContext()).apply {
             setTitle(R.string.tambah_mahasiswa)
             setView(binding.root)
             setPositiveButton(R.string.simpan) { _, _ ->
                 val mahasiswa = getData() ?: return@setPositiveButton
-                val listener = requireActivity() as DialogListener
-                listener.processDialog(mahasiswa)
+                viewModel.insertData(mahasiswa)
             }
             setNegativeButton(R.string.batal) { _, _ -> dismiss() }
         }
@@ -40,9 +53,11 @@ class MainDialog : DialogFragment() {
             showMessage(R.string.nama_wajib_diisi)
             return null
         }
+        val args = MainDialogArgs.fromBundle(requireArguments())
         return Mahasiswa(
             nim = binding.nimEditText.text.toString(),
-            nama = binding.namaEditText.text.toString()
+            nama = binding.namaEditText.text.toString(),
+            kelas = args.kelas
         )
     }
     private fun showMessage(messageResId: Int) {
@@ -51,8 +66,4 @@ class MainDialog : DialogFragment() {
             show()
         }
     }
-    interface DialogListener {
-        fun processDialog(mahasiswa: Mahasiswa)
-    }
-
 }

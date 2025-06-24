@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/kelasFragment">
+
+    <fragment
+        android:id="@+id/kelasFragment"
+        android:name="org.d3if0023.mymodul1.ui.master.KelasFragment"
+        android:label="KelasFragment" >
+        <action
+            android:id="@+id/action_kelasFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="org.d3if0023.mymodul1.ui.detail.MainFragment"
+        android:label="{kelas}">
+        <action
+            android:id="@+id/action_mainFragment2_to_mainDialog"
+            app:destination="@id/mainDialog" />
+        <argument
+            android:name="kelas"
+            app:argType="string" />
+    </fragment>
+    <dialog
+        android:id="@+id/mainDialog"
+        android:name="org.d3if0023.mymodul1.ui.detail.MainDialog"
+        tools:layout="@layout/dialog_main" >
+        <argument
+            android:name="kelas"
+            app:argType="string" />
+    </dialog>
+</navigation>

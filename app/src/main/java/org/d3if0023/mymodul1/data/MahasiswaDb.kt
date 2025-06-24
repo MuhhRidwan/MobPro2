@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Mahasiswa::class], version = 1, exportSchema = false)
+@Database(entities = [Mahasiswa::class], version = 2, exportSchema = false)
 abstract class MahasiswaDb : RoomDatabase() {
     abstract val dao : MahasiswaDao
     companion object {
@@ -20,7 +20,7 @@ abstract class MahasiswaDb : RoomDatabase() {
                         MahasiswaDb::class.java,
 
                         "mahasiswa.db"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
 
                     INSTANCE = instance
 

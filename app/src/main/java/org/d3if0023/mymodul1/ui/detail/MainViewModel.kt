@@ -1,5 +1,6 @@
-package org.d3if0023.mymodul1
+package org.d3if0023.mymodul1.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +11,9 @@ import org.d3if0023.mymodul1.data.MahasiswaDao
 
 class MainViewModel(private val db : MahasiswaDao) : ViewModel() {
 
-    val data = db.getData()
+    fun getData(kelas: String): LiveData<List<Mahasiswa>> {
+        return db.getData(kelas)
+    }
 
     fun insertData(mahasiswa: Mahasiswa) {
         viewModelScope.launch {
